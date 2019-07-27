@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from "react-redux";
 
 import "./SideNav.css";
-
-import { getAllCategories, selectCategory } from '../../redux/categories/reducer';
+import { selectCategory, fetchCategories } from '../../redux/categories/actions';
 
 export class SideNav extends React.PureComponent {
 
@@ -50,6 +49,13 @@ export class SideNav extends React.PureComponent {
 ///////////////////////////////////////////////////////////////////////
 //  REDUX CONNECTION
 ///////////////////////////////////////////////////////////////////////
+function mapDispatchToProps(dispatch) {
+  return {
+    getAllCategories: () => dispatch(fetchCategories()),
+    selectCategory: (categoryId) => dispatch(selectCategory(categoryId))
+  };
+}
+
 function mapStateToProps(state) {
   const { categories } = state;
   const categoriesToJS = categories.toJS();
@@ -59,11 +65,4 @@ function mapStateToProps(state) {
   };
 }
 
-// don't need mapDispatchToProps b/c we are using action creators
-export default connect(
-  mapStateToProps,
-  {
-    getAllCategories,
-    selectCategory,
-  }
-)(SideNav);
+export default connect(mapStateToProps, mapDispatchToProps)(SideNav);

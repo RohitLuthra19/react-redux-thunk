@@ -1,5 +1,4 @@
 import * as types from './types';
-//import { fromJS } from 'immutable';
 import { initialState } from './initialState';
 
 const reducer = (state = initialState, action) => {
@@ -55,7 +54,3 @@ const reducer = (state = initialState, action) => {
 }
 
 export default reducer;
-
-export const getAllCategories = () => ({ type: types.GET_ALL_CATEGORIES_REQUEST })
-export const getSingleCategory = (categoryId, limit, page, isMore) => ({ type: types.GET_SINGLE_CATEGORY_REQUEST, categoryId, limit, page, isMore })
-export const selectCategory = (categoryId) => ({ type: types.SELECT_CATEGORY, categoryId})

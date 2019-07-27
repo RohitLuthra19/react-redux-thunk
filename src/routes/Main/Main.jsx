@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 
 import "./Main.css";
 import Spinner from '../../components/Spinner/Spinner';
-
-import { getSingleCategory } from '../../redux/categories/reducer';
+import { fetchSingleCategory } from '../../redux/categories/actions';
 
 export class Main extends React.PureComponent {
     render() {
@@ -31,8 +30,7 @@ export class Main extends React.PureComponent {
     }
 
     componentDidMount() {
-      const { activeCategory } = this.props;
-      const { limit, page } = this.props.categories;
+      const { limit, page, activeCategory } = this.props.categories;
       if (activeCategory !== -1) {
         this.props.getSingleCategory(activeCategory, limit, page, false);
       }
@@ -66,6 +64,12 @@ export class Main extends React.PureComponent {
 ///////////////////////////////////////////////////////////////////////
 //  REDUX CONNECTION
 ///////////////////////////////////////////////////////////////////////
+function mapDispatchToProps(dispatch) {
+  return {
+    getSingleCategory: (categoryId, limit, page, isMore) => dispatch(fetchSingleCategory(categoryId, limit, page, isMore)),
+  };
+}
+
 function mapStateToProps(state) {
   const { categories } = state;
   const categoriesToJS = categories.toJS();
@@ -75,10 +79,4 @@ function mapStateToProps(state) {
   };
 }
 
-// don't need mapDispatchToProps b/c we are using action creators
-export default connect(
-  mapStateToProps,
-  {
-    getSingleCategory,
-  }
-)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
