@@ -2,7 +2,7 @@ import axios from "axios";
 import * as types from './types';
 import * as constants from '../constants';
 
-export const getAllCategories = () => dispatch => {
+export const getAllCategoriesRequest = () => dispatch => {
     dispatch({
         type: types.GET_ALL_CATEGORIES_REQUEST
     })
@@ -53,7 +53,7 @@ export const fetchCategories = () => {
   const url = `${constants.BASE_URL}/categories`;
 
   return (dispatch) => {
-    dispatch(getAllCategories());
+    dispatch(getAllCategoriesRequest());
     return axios.get(url)
       .then((response) => {
         if (response.status !== 200) {

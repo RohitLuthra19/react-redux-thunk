@@ -1,4 +1,5 @@
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import SideNav from './SideNav';
 import '../../setupTests';
 import renderer from 'react-test-renderer';
@@ -13,10 +14,13 @@ describe('SideNav renders',() => {
   })
 
   it('SideNav component created', () => {
-    const rendered = renderer.create(
-      <SideNav store={store} />
-    );
-    expect(rendered.toJSON()).toMatchSnapshot();
+    let rendered;
+    act(() => {
+      rendered = renderer.create(
+        <SideNav store={store} />
+      );
+      expect(rendered.toJSON()).toMatchSnapshot();
+    });
   })
 
   it('find text:Categories', () => {
